@@ -1,0 +1,10 @@
+.compText{
+    height: 100px;
+    border: solid 2px red;
+    text-align: center;
+}
+#fix {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
