@@ -1,23 +1,28 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import './App.css';
 import MessageComp from './Components/MessageComp'
+import MessageListComp from "./Components/MessageListComp";
+import Message from "./Message";
 
+let currentUser = "Пользователь 1";
+let botName = "Классный бот";
 function App() {
-  const [inputText, setInputText] = useState("");
-  const [count, setCount] = useState(0);
 
-  console.log(count);
-  console.log('Запуск');
-  const onInputChanged = e =>
-  {
-    setInputText(e.target.value);
-    setCount(prev => prev + 1);
-  };
+  const [messageList, setMessageList] = useState([]);
+  let addMessage = text =>{
+    setMessageList( prev => [...prev, new Message(currentUser, text)]);
+  }
+
+  useEffect( () => {
+    if(messageList.length === 0 || messageList[messageList.length-1]?.Author === botName)
+      return;
+    setTimeout( () => setMessageList( prev => [...prev, new Message(botName, "Зачем ты это написал?")]), 1500);
+  },[messageList])
 
   return (
-    <div>
-      <input type="text" value={inputText} onChange = {onInputChanged}/>
-        <MessageComp showText={inputText} />
+    <div className="frame">
+      <MessageListComp messageList={messageList} />
+      <MessageComp addMessage={addMessage} />
     </div>
   );
 }
