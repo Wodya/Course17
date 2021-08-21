@@ -1,10 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { orange } from '@material-ui/core/colors';
 
+const outerTheme = createTheme({
+  palette: {
+    primary: {
+      main: orange[500],
+    },
+  },
+});
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={outerTheme}>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
