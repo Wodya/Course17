@@ -3,6 +3,7 @@ import Chat from "./Chat";
 import Playground from "./Playground";
 import Home from "./Home";
 import AppBar from "./AppBar";
+import Profile from "./Profile";
 
 const App = () => {
   return (
@@ -13,9 +14,11 @@ const App = () => {
         <Route path="/chat">
           <Chat />
         </Route>
-
         <Route path="/playground">
           <Playground myProps={1} />
+        </Route>
+        <Route path="/profile">
+          <Profile />
         </Route>
 
         <Route path="/">
