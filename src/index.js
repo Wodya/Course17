@@ -1,25 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
-import { orange } from '@material-ui/core/colors';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import App from "./App";
+import { ThemeProvider } from "@material-ui/styles";
+import { theme } from "./theme";
+import store from "./store";
 
-const outerTheme = createTheme({
-  palette: {
-    primary: {
-      main: orange[500],
-    },
-  },
-});
+export const MyDataContext = React.createContext({ appVersion: "0.9-alpha" });
+
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={outerTheme}>
-      <App />
+    <ThemeProvider theme={theme}>
+      <MyDataContext.Provider value={{ appVersion: "0.9-alpha" }}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </MyDataContext.Provider>
     </ThemeProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

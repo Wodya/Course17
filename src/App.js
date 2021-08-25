@@ -1,31 +1,29 @@
-import React, {useState, useEffect} from "react";
-import { createTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-import HomeComp from "./Components/Home"
-import ChatComp from './Components/Chat'
-import AppBarComp from "./AppBarComp";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Chat from "./Chat";
+import Playground from "./Playground";
+import Home from "./Home";
+import AppBar from "./AppBar";
 
-const menu = [{name: "Домашняя страница", path: "/"},
-  { name: "Чаты", path: "/chat"}];
-
-function App() {
+const App = () => {
   return (
     <Router>
-      <AppBarComp />
+      <AppBar />
+
       <Switch>
-        <Route exact path="/">
-          <HomeComp/>
-        </Route>
         <Route path="/chat">
-          <ChatComp />
+          <Chat />
+        </Route>
+
+        <Route path="/playground">
+          <Playground myProps={1} />
+        </Route>
+
+        <Route path="/">
+          <Home />
         </Route>
       </Switch>
     </Router>
   );
-}
+};
 
 export default App;
