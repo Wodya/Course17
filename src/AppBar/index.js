@@ -1,11 +1,7 @@
 import { useState } from "react";
-import { AppBar as MaterialUiAppBar } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Toolbar from "@material-ui/core/Toolbar";
 import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import { Link, useLocation, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -65,22 +61,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const routes = [
-  {
-    pathTitle: "Home",
-    path: "/home",
-  },
-  { pathTitle: "Chat", path: "/chat" },
-  { pathTitle: "Playground", path: "/playground" },
-];
-
 const AppBar = () => {
   const classes = useStyles();
-  const location = useLocation();
-  const history = useHistory();
-
   const { chats } = useSelector((state) => state.chat);
-
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -132,26 +115,10 @@ const AppBar = () => {
 
       <Box className={classes.chatWrapper}>
         {chats.map((chat) => (
-          <ChatPreview chat={chat} />
+          <ChatPreview key={chat.id} chat={chat} />
         ))}
       </Box>
     </Drawer>
-
-    // <MaterialUiAppBar className={classes.appBar} position="static">
-    //   <Toolbar>
-    //     {routes.map((route) => (
-    //       <Link
-    //         key={route.path}
-    //         to={route.path}
-    //         className={`${classes.link} ${
-    //           route.path === location.pathname ? classes.activeLink : ""
-    //         }`}
-    //       >
-    //         <Typography variant="h6">{route.pathTitle}</Typography>
-    //       </Link>
-    //     ))}
-    //   </Toolbar>
-    // </MaterialUiAppBar>
   );
 };
 

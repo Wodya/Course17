@@ -53,7 +53,6 @@ const ChatPreview = ({ chat }) => {
     messagesArray.length > 0
       ? messagesArray[messagesArray.length - 1]
       : { text: "", timeStamp: null };
-
   const unreadMessagesCount = messagesArray.reduce((acc, message) => {
     if (message.userId === id && !message.isRead) {
       acc++;
@@ -79,7 +78,7 @@ const ChatPreview = ({ chat }) => {
 
       <Box className={classes.rightContentWrapper}>
         <Typography variant="caption">
-          {lastMessage.timeStamp.format("h:mm")}
+          {moment(lastMessage.timeStamp).format("h:mm")}
         </Typography>
         <Typography variant="subtitle1">
           {unreadMessagesCount > 0 && unreadMessagesCount}

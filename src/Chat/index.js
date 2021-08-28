@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage } from "./chatSlice";
 import MessageList from "./MessageList";
@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Chat() {
-  // const [messagesArray, setMessagesArray] = useState([]);
   const urlParams = useParams();
   const chatId = Number.parseInt(urlParams.id);
 
@@ -42,7 +41,6 @@ function Chat() {
   useEffect(() => {
     if (messagesArray.length > 0) {
       setTimeout(() => {
-        // console.log("Message was sent");
       }, 1000);
     }
   }, [messagesArray]);
