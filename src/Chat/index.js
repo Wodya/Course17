@@ -24,6 +24,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const sendMessageMiddleWare = (payload) => (dispatch, getState) =>{
+  dispatch(addMessage(payload));
+  if(payload.myMessage)
+    setTimeout( () => dispatch(addMessage({ chatId: payload.chatId, messageText: "Ответ робота"})), 1000);
+};
+
 function Chat() {
   const urlParams = useParams();
   const chatId = Number.parseInt(urlParams.id);
@@ -35,7 +41,7 @@ function Chat() {
   const classes = useStyles();
 
   const onSendMessage = (messageText) => {
-    dispatch(addMessage({ chatId, messageText }));
+    dispatch(sendMessageMiddleWare({ chatId, messageText, myMessage: true }));
   };
 
   useEffect(() => {

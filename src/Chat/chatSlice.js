@@ -63,6 +63,7 @@ export const chatSlice = createSlice({
       const { chatId, messageText } = action.payload;
       const chatIndex = state.chats.findIndex((chat) => chat.id === chatId);
       const chat = state.chats[chatIndex];
+
       chat.messagesArray.push({
         text: messageText,
         timeStamp: new moment().valueOf(),
