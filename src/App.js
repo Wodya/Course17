@@ -4,6 +4,7 @@ import Playground from "./Playground";
 import Home from "./Home";
 import AppBar from "./AppBar";
 import { makeStyles } from "@material-ui/core/styles";
+import Card from "./Card";
 
 const useStyles = makeStyles((theme) => ({
   mainWrapper: {
@@ -28,6 +29,10 @@ const App = () => {
 
           <Route path="/playground">
             <Playground myProps={1} />
+          </Route>
+
+          <Route path="/card">
+            <Card />
           </Route>
 
           <Route path="/">

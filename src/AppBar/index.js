@@ -97,6 +97,7 @@ const AppBar = () => {
         >
           <MenuItem key={1}>Профиль</MenuItem>
           <MenuItem key={2}>Настройки</MenuItem>
+          <MenuItem key={3}>Картинка</MenuItem>
         </Menu>
 
         <TextField
