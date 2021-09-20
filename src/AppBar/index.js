@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { AppBar as MaterialUiAppBar } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Toolbar from "@material-ui/core/Toolbar";
 import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -61,9 +65,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const routes = [
+  {
+    pathTitle: "Home",
+    path: "/home",
+  },
+  { pathTitle: "Chat", path: "/chat" },
+  { pathTitle: "Playground", path: "/playground" },
+  { pathTitle: "Cats", path: "/cats" },
+];
+
 const AppBar = () => {
   const classes = useStyles();
-  const { chats } = useSelector((state) => state.chat);
+  const history = useHistory();
+  const { profiles, messages } = useSelector((state) => state.chat);
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -95,9 +111,11 @@ const AppBar = () => {
           anchorPosition={{ top: 50, left: 25 }}
           anchorReference={"anchorPosition"}
         >
-          <MenuItem key={1}>Профиль</MenuItem>
-          <MenuItem key={2}>Настройки</MenuItem>
-          <MenuItem key={3}>Картинка</MenuItem>
+          <MenuItem key={1} onClick={() => history.push("/cats")}>
+            Коты
+          </MenuItem>
+          <MenuItem key={2}>Профиль</MenuItem>
+          <MenuItem key={3}>Настройки</MenuItem>
         </Menu>
 
         <TextField
@@ -115,8 +133,11 @@ const AppBar = () => {
       </Box>
 
       <Box className={classes.chatWrapper}>
-        {chats.map((chat) => (
-          <ChatPreview key={chat.id} chat={chat} />
+        {profiles.map((profile) => (
+          <ChatPreview
+            profile={profile}
+            messages={messages[profile.id] || []}
+          />
         ))}
       </Box>
     </Drawer>

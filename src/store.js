@@ -1,13 +1,21 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage";
 import chatReducer from "./Chat/chatSlice";
-import cardReducer from "./Card/cardSlice";
+import catReducer from "./Cats/catSlice";
 import thunkMiddleware from "redux-thunk";
-import {cardSlice} from "./Card/cardSlice";
+import { persistReducer } from "redux-persist";
+
+const persistConfig = {
+  key: "root",
+  storage,
+  blacklist: ["cats", "chat"],
+};
+
+const reducers = combineReducers({ chat: chatReducer, cats: catReducer });
+
+const persistedReducer = persistReducer(persistConfig, reducers);
 
 export default configureStore({
-  reducer: {
-    chat: chatReducer,
-    card: cardReducer,
-    middleware: [thunkMiddleware],
-  },
+  reducer: persistedReducer,
+  middleware: [thunkMiddleware],
 });
