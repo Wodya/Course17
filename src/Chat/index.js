@@ -5,6 +5,7 @@ import MessageInput from "./MessageInput";
 import { makeStyles } from "@material-ui/core/styles";
 import { useParams } from "react-router-dom";
 import { sendMessageWithThunk, initMessageTracking } from "./actions";
+import {db} from "../App";
 
 const useStyles = makeStyles((theme) => ({
   chatWrapper: {
@@ -25,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Chat() {
+  console.log(db.ref("users").get());
+
   const urlParams = useParams();
   const chatId = Number.parseInt(urlParams.id);
 

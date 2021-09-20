@@ -18,14 +18,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyANtBaeDjrPPzY6TIrjq8CMvSB3Az5agL0",
-  authDomain: "gb-react-project-350cd.firebaseapp.com",
-  projectId: "gb-react-project-350cd",
-  databaseURL:
-    "https://gb-react-project-350cd-default-rtdb.europe-west1.firebasedatabase.app",
-  storageBucket: "gb-react-project-350cd.appspot.com",
-  messagingSenderId: "524675586930",
-  appId: "1:524675586930:web:571c4afa11c8f74e439beb",
+  apiKey: "AIzaSyAz-SF6XEZPEtAFPQbqWdXviHxQ4b9bl7o",
+  authDomain: "course17-react-wodya.firebaseapp.com",
+  databaseURL: "https://course17-react-wodya-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "course17-react-wodya",
+  storageBucket: "course17-react-wodya.appspot.com",
+  messagingSenderId: "484595715507",
+  appId: "1:484595715507:web:6e8eb94dda91285559cfc6"
 };
 
 firebase.initializeApp(firebaseConfig);
