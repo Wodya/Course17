@@ -1,8 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import {db} from "../App";
-import firebase from "firebase/compat";
 
 const useStyles = makeStyles(() => ({
   messageList: {
@@ -35,10 +33,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const MessageList = ({ messagesArray }) => {
-
-  // db.ref("users").get().then(value => console.log('users',value[0]));
   const classes = useStyles();
-  const { myId } = useSelector((state) => state.chat);
+  const { myUid } = useSelector((state) => state.chat);
 
   return (
     <div className={`${classes.messageList} messageList`}>
@@ -48,7 +44,7 @@ const MessageList = ({ messagesArray }) => {
             key={i}
             className={`
             ${
-              message.authorId === myId
+              message.authorUid === myUid
                 ? classes.userMessage
                 : classes.senderMessage
             } ${classes.message}`}

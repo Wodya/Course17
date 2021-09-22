@@ -5,7 +5,6 @@ import MessageInput from "./MessageInput";
 import { makeStyles } from "@material-ui/core/styles";
 import { useParams } from "react-router-dom";
 import { sendMessageWithThunk, initMessageTracking } from "./actions";
-import {db} from "../App";
 
 const useStyles = makeStyles((theme) => ({
   chatWrapper: {
@@ -26,21 +25,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Chat() {
-  console.log(db.ref("users").get());
-
   const urlParams = useParams();
-  const chatId = Number.parseInt(urlParams.id);
+  const targetUId = urlParams.id;
+  const chats = useSelector((state) => state.chat.chats);
+  const targetProfileId = Object.keys(chats).find((profileId) => profileId);
+
+  const chatId = chats[targetProfileId] ? chats[targetProfileId].chatId : null;
 
   const messages = useSelector((state) => state.chat.messages[chatId]);
 
-  console.log(messages, 'MESSAGES');
-  const myId = useSelector((state) => state.chat.myId);
+  const myUid = useSelector((state) => state.chat.myUid);
   const dispatch = useDispatch();
 
   const classes = useStyles();
 
   const onSendMessage = (messageText) => {
-    dispatch(sendMessageWithThunk({ chatId, messageText, authorId: myId }));
+    dispatch(
+      sendMessageWithThunk({
+        chatId,
+        messageText,
+        authorUid: myUid,
+        targetUid: targetUId,
+      })
+    );
   };
 
   useEffect(() => {
@@ -49,7 +56,9 @@ function Chat() {
     }
   });
 
-
+  if (!targetProfileId || !chatId) {
+    return <div>Ошибка, нет собеседника</div>;
+  }
 
   return (
     <div className={classes.chatWrapper}>
